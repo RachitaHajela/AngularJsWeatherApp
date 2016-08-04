@@ -13,9 +13,14 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 
   $routeProvider.otherwise({redirectTo: '/view1'});
 }]).
-    controller('AppCtrl', function($scope) {
+    controller('AppCtrl', function($scope,$http) {
         $scope.title1 = 'Hello';
         $scope.title4 = 'Warn';
         $scope.isDisabled = true;
         $scope.googleUrl = 'http://google.com';
+
+        $http.get("http://ip.jsontest.com/?callback=showMyIP")
+        .then(function(response) {
+            $scope.myWelcome = response.data;
+        });
 });
